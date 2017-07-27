@@ -1,0 +1,35 @@
+{% extends 'university/index.html' %}
+{% block content %}
+<section class="section-teachers">
+	<h4>Преподаватели</h4>
+	<div class="buttons">
+		<button class="add-teacher">
+			<a href="{% url 'teacher-form' %}">Добавить преподавателя</a>
+		</button>
+	</div>
+	<table>
+		 <tr>
+		 	<th>Имя</th>
+		 	<th>Фамилия</th>
+		 	<th>Факультет</th>
+		 	<th>Група</th>
+		 	<th>Предмет</th>
+		 </tr>
+		 {% for teacher in teachers %}
+			 <tr>		 	
+			 	<td>{{teacher.name}}</td>
+			 	<td>{{teacher.surname}}</td>
+			 	<td>{% for department in  teacher.department_set.all %}
+			 		<p>{{department}}</p>
+			 	{% endfor %}</td>
+			 	<td>{% for group in teacher.group_set.all %}
+			 		<p>{{group}}</p>
+				{% endfor %}</td>
+			 	<td>{% for subject in teacher.subject_set.all %}
+			 	    <p>{{subject}}</p>
+			 	{% endfor %}</td>
+			 </tr>
+		{% endfor %}
+	</table>
+</section>
+{% endblock %}

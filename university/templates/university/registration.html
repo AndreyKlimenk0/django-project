@@ -1,0 +1,23 @@
+{% extends 'university/index.html' %}
+{% block content %}
+	<form action="{% url 'registration' %}" method="post">{% csrf_token %}
+		<div class="wrapper-registration">
+			<table>
+				<tr>
+    				<td>{{ form.username.label_tag }}</td>
+    				<td>{{ form.username }}</td>
+				</tr>
+				<tr>
+    				<td>{{ form.password1.label_tag }}</td>
+    				<td>{{ form.password1 }}</td>
+				</tr>
+				<tr>
+    				<td>{{ form.password2.label_tag }}</td>
+    				<td>{{ form.password2 }}</td>
+				</tr>
+			</table>
+			<button class="registration-button" type="Submit">Зарегистрироватся</button>
+		</div>
+		<p>{{form.error}}</p>
+	</form>
+{% endblock %}

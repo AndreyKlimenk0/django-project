@@ -1,0 +1,40 @@
+{% extends 'university/index.html' %}
+{% block content %}
+<section class="section-students">
+	{% if student.photo %}
+		<div class="photo"><img src="{{student.photo.url}}" alt=""></div>
+	{% endif %}
+		<p>Фамилия: {{student.surname}}</p>
+		<p>Имя: {{student.name}}</p>
+		<p>Факультет: {{student.department}}</p>
+		<p>Курс: {{student.cource}}</p>
+		<p>Група: {{student.group}}</p>
+		<div class="buttons">
+			<button class="delete-student">
+				<a href="{% url 'delete-student' student.id %}">Удалить Студента</a>
+			</button>
+			<button class="copy-student">
+				<a href="{% url 'copy-student' student.id %}">Копировать Студента</a>
+			</button>
+		</div>	
+	<table>
+		<tr>
+		 	<th>Оценка</th>
+		 	<th>Преподаватель</th>
+		 	<th>Предмет</th>
+		 	<th>Дата</th>
+		</tr>
+		{% for evalution in evalutions %}
+		<tr> 	
+			<td>{{evalution.appraisal}}</td>
+			<td>{{evalution.teacher}}</td>
+			<td>{{evalution.subject}}</td>
+			<td>{{evalution.date}}</td>
+			{% endfor %}
+		</tr>
+		<tr>
+			<td>Средняя оценка:{{args}}</td>
+		</tr>
+	</table>
+</section>
+{% endblock %}

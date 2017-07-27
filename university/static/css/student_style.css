@@ -1,0 +1,133 @@
+/* student.html */
+.section-students{
+	margin: 0;
+	padding: 0;
+	width: 960px;
+	margin: auto;
+	border-left: solid 2px #c5cfd6;
+	border-right: solid 2px #c5cfd6;
+	min-height: 800px;
+	height: 100%;
+}
+
+.section-students  a {
+	text-decoration: none;
+}
+
+.section-students  a:hover{
+	color: #179fbd;
+}
+
+.section-students table, th, td{
+	margin: 0 auto;
+	border: 1px solid black;
+}
+
+.section-students table {
+	border-collapse: collapse;
+	width: 700px;
+	font-weight: normal;
+	margin-top: 20px;
+}
+
+.section-students th {
+	height: 50px;
+	font-weight: normal;
+}
+
+.section-students td {
+	padding-left: 5px;
+}
+
+.section-students h4{
+	margin: 0px 10px;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	color: black;
+	font-size: 17px;
+}
+
+.add-student {
+	background: #179fbd;
+	margin: 7px 17px;
+	padding: 10px 20px; 
+	border-radius: 5px;
+	border: solid 2px #179fbd;
+
+}
+
+.add-student a {
+	text-decoration: none;
+	color: white;
+}
+
+.add-student a:hover{
+	color: white;
+}
+
+.add-student:hover{
+	background: #238ca6;
+	transition: 0.2s;
+}
+
+.buttons {
+	border-top: 2px solid #c5cfd6;
+	border-bottom: 2px solid #c5cfd6;
+}
+
+/* student_detail.html */
+.delete-student {
+	background: #179fbd;
+	margin: 10px 20px;
+	padding: 10px 20px; 
+	border-radius: 5px;
+	border: solid 2px #179fbd;
+
+}
+
+.delete-student a {
+	text-decoration: none;
+	color: white;
+	transition: 0.2s;
+}
+
+.delete-student:hover{
+	background: #238ca6;
+	transition: 0.2s
+}
+
+.delete-student a:hover{
+	color: white;
+	transition: 0.2s
+}
+
+.button {
+	border-top: 2px solid #c5cfd6;
+	border-bottom: 2px solid #c5cfd6;
+}
+
+.copy-student {
+	background: #179fbd;
+	margin: 10px 20px;
+	padding: 10px 20px; 
+	border-radius: 5px;
+	border: solid 2px #179fbd;
+
+}
+
+.copy-student a {
+	text-decoration: none;
+	color: white;
+	transition: 0.2s;
+}
+
+.copy-student:hover{
+	background: #238ca6;
+	transition: 0.2s;
+}
+
+.copy-student a:hover{
+	color: white;
+	transition: 0.2s;
+}

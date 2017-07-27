@@ -1,0 +1,73 @@
+.section-teachers {
+	margin: 0;
+	padding: 0;
+	width: 960px;
+	margin: auto;
+	border-left: solid 2px #c5cfd6;
+	border-right: solid 2px #c5cfd6;
+	min-height: 800px;
+	height: 100%;
+}
+
+.section-teachers  a {
+	text-decoration: none;
+}
+
+.section-teachers a:hover{
+	color: #179fbd;
+}
+
+.section-teachers table, th, td{
+	margin: 0 auto;
+	border: 1px solid black;
+}
+
+.section-teachers table {
+	border-collapse: collapse;
+	width: 700px;
+	font-weight: normal;
+	margin-top: 20px;
+}
+
+.section-teachers th {
+	height: 50px;
+	font-weight: normal;
+}
+
+.section-teachers td {
+	padding-left: 5px;
+}
+
+.section-teachers h4{
+	margin: 0px 10px;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	color: black;
+	font-size: 17px;
+}
+
+.add-teacher {
+	background: #179fbd;
+	margin: 7px 17px;
+	padding: 10px 20px; 
+	border-radius: 5px;
+	border: solid 2px #179fbd;
+
+}
+
+.add-teacher a {
+	text-decoration: none;
+	color: white;
+	transition: 0.2s;
+}
+
+.add-teacher a:hover{
+	color: white;
+	transform: 0.2s;
+}
+
+.buttons {
+	border-top: 2px solid #c5cfd6;
+	border-bottom: 2px solid #c5cfd6;
+}

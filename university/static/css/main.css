@@ -1,0 +1,57 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', Arial, sans-serif;
+}
+
+a {
+	color: black;
+}
+
+h3, h4 {
+	font-weight: normal;
+}
+p {
+	margin: 0px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+/* top-menu */
+.nav-list {
+	list-style: none;
+	background: #179fbd;
+	height: 70px;
+	line-height: 70px;
+	margin: 0px;
+}
+
+.nav-list li {
+	display: inline;
+	margin-left: -4px;
+}
+
+.nav-list a {
+	text-decoration: none;
+	display: inline-block;
+	width: 130px;
+	text-align: center;
+	height: 70px;
+	color: white;
+	transition: 0.2s;
+}
+
+.nav-list a:hover {
+	background: #238ca6;
+	color: white;
+}
+
+.form {
+	float: right;
+}
+
+.username {
+	float: right;
+	width: 70px;
+	color: white;
+}

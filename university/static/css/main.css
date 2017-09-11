@@ -3,11 +3,6 @@ body, html {
 	padding: 0;
 	font-family: 'Roboto', Arial, sans-serif;
 }
-
-a {
-	color: black;
-}
-
 h3, h4 {
 	font-weight: normal;
 }
@@ -17,11 +12,11 @@ p {
 	padding-bottom: 10px;
 	padding-left: 10px;
 }
-/* top-menu */
+
 .nav-list {
 	list-style: none;
 	background: #179fbd;
-	height: 70px;
+	height: 710px;
 	line-height: 70px;
 	margin: 0px;
 }
@@ -45,13 +40,5 @@ p {
 	background: #238ca6;
 	color: white;
 }
-
-.form {
-	float: right;
-}
-
-.username {
-	float: right;
-	width: 70px;
-	color: white;
-}
+/* student-form */
+.wrapper-registration input

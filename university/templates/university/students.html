@@ -1,31 +1,34 @@
 {% extends 'university/index.html' %}
 {% block content %}
-<section class="section-students">
+<section class="container">
 	<h4>Студенты</h4>
-	<div class="buttons">
-		<button class="add-student">
-			<a href="{% url 'student-form' %}">Добавить студента</a>
-		</button>
+	<div class="button-add">
+		<a class="btn btn-primary" href="{% url 'student-form' %}">Добавить студента</a>
 	</div>
-	<table>
+	<table class="table table-bordered">
 		 <tr>
-		 	<th>Имя</th>
-		 	<th>Фамилия</th>
-		 	<th>Факультет</th>
-		 	<th>Курс</th>
-		 	<th>Група</th>
-		 	<th>Фото</th>
+			 <th>-/+</th>
+			 <th>Имя</th>
+			 <th>Фамилия</th>
+			 <th>Факультет</th>
+			 <th>Курс</th>
+			 <th>Група</th>
+			 <th>Фото</th>
 		 </tr>
 		 {% for student in students %}
-			 <tr>		 	
-			 	<td>{{student.name}}</td>
-			 	<td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
-			 	<td>{{student.department}}</td>
-			 	<td>{{student.cource}}</td>
-				<td>{{student.group}}</td>
-				{% if student.photo %}
-					<td><img src="{{student.photo.url}}" alt=""></td>
-				{% endif %}
+			 <tr>
+				 <td>
+					 <a class="glyphicon glyphicon-plus" href="{% url 'copy-student' student.id %}"></a>
+					 <a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"></a>
+				 </td>
+				 <td>{{student.name}}</td>
+				 <td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
+				 <td>{{student.department}}</td>
+				 <td>{{student.cource}}</td>
+				 <td>{{student.group}}</td>
+				 {% if student.photo %}
+				 	<td><img src="{{student.photo.url}}" alt=""></td>
+				 {% endif %}
 			</tr>
 		{% endfor %}
 	</table>

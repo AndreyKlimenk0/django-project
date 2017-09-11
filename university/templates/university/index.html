@@ -1,12 +1,15 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'css/student_style.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'css/teacher_style.css' %}" />
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Roboto -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 	<header>
@@ -15,11 +18,11 @@
 				<li><a href="{% url 'students' %}">Cтуденты</a></li>
 				<li><a href="{% url 'teacher' %}">Преподаватели</a></li>
 				{% if not request.user.is_authenticated %}
-					<li class="form"><a href="{% url 'registration' %}">Регистрация</a></li>
 					<li class="form"><a href="{% url 'login' %}">Войти</a></li>
+					<li class="form-registration"><a href="{% url 'registration' %}">Регистрация</a></li>
 				{% else %}
 					<li class="form"><a href="{% url 'logout' %}">Выйти</a></li>
-					<li class="username">{{user.username}}</li>
+					<li class="form-username">{{user.username}}</li>
 				{% endif %}
 			</ul>
 		</nav>

@@ -1,23 +1,29 @@
 {% extends 'university/index.html' %}
 {% block content %}
-	<form action="{% url 'registration' %}" method="post">{% csrf_token %}
-		<div class="wrapper-registration">
-			<table>
-				<tr>
-    				<td>{{ form.username.label_tag }}</td>
-    				<td>{{ form.username }}</td>
-				</tr>
-				<tr>
-    				<td>{{ form.password1.label_tag }}</td>
-    				<td>{{ form.password1 }}</td>
-				</tr>
-				<tr>
-    				<td>{{ form.password2.label_tag }}</td>
-    				<td>{{ form.password2 }}</td>
-				</tr>
-			</table>
-			<button class="registration-button" type="Submit">Зарегистрироватся</button>
-		</div>
-		<p>{{form.error}}</p>
-	</form>
+<div class="top-heading">
+    <h4>Регистрация</h4>
+</div>
+<div class="wrapper-registration">
+    <form class="" method="post" action="{% url 'registration' %}">{% csrf_token %}
+        <div class="form-group">
+            <label for="inputEmail3" class="">Email</label>
+            {{form.email}}
+            </div>
+        <div class="form-group">
+            <label for="inputUsername" class="">Имя Пользавателя</label>
+            {{form.username}}
+            </div>
+        <div class="form-group">
+            <label for="inputPassword1" class="">Пароль</label>
+            {{form.password1}}
+        </div>
+        <div class="form-group">
+            <label for="inputPassword2" class="">Повторите пароль</label>
+            {{form.password2}}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-info">Регистрация</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

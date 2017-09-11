@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Email
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '1025'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -70,19 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'university_db',
+        'OPTIONS': {'read_default_file': '/path/to/my.cnf'},
+        'USER': 'andrey',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3333',
     }
 }
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -121,9 +122,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    '/home/andrey/projects_django/mysite/university/static/css',
+    '/home/andrey/projects_django/mysite/university/static/',
 
 )
 

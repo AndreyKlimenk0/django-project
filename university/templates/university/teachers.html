@@ -1,13 +1,11 @@
 {% extends 'university/index.html' %}
 {% block content %}
-<section class="section-teachers">
+<section class="container">
 	<h4>Преподаватели</h4>
-	<div class="buttons">
-		<button class="add-teacher">
-			<a href="{% url 'teacher-form' %}">Добавить преподавателя</a>
-		</button>
+	<div class="button-add">
+		<a class="btn btn-primary" href="{% url 'teacher-form' %}">Добавить преподавателя</a>
 	</div>
-	<table>
+	<table class="table table-bordered">
 		 <tr>
 		 	<th>Имя</th>
 		 	<th>Фамилия</th>

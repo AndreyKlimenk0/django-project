@@ -3,9 +3,10 @@ from django.shortcuts import get_object_or_404
 from university.models import Students, Teacher, Evalution
 from django.views.generic import (ListView, DetailView, FormView,
                                   RedirectView)
-from university.forms import StudentsForm, TeacherForm
+from university.forms import StudentsForm, TeacherForm, UserCreateForm
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import send_mail
+from django.contrib.auth import authenticate, login
 
 
 class StudentsList(ListView):
@@ -54,11 +55,19 @@ class TeacherForm(FormView):
 
 
 class RegistrationForm(FormView):
-    form_class = UserCreationForm
+    form_class = UserCreateForm
     success_url = reverse_lazy('registration')
     template_name = 'university/registration.html'
 
     def form_valid(self, form):
+        recipient = []
+        email = form.cleaned_data['email']
+        username = form.cleaned_data['username']
+        password1 = form.cleaned_data['password1']
+        password2 = form.cleaned_data['password2']
+        if email:
+            recipient.append(email)
+        send_mail(username, 'message', 'deadshot271998@gmail.com', recipient)
         form.save()
         return super(RegistrationForm, self).form_valid(form)
 
@@ -76,8 +85,8 @@ class DeleteStudentRedirect(RedirectView):
 class CopyStudentRedirect(RedirectView):
     url = '/university/students/'
 
-    def get_redirect_url(self, *args, **kwargs):
-        evalution = Evalution.objects.filter(student_id=kwargs['pk'])
+    def get_redirect_url(self, pk, *args, **kwargs):
+        evalution = Evalution.objects.filter(student_id=pk)
         evalution.delete()
         return super(CopyStudentRedirect, self).get_redirect_url(
             *args, **kwargs)

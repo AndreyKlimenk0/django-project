@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,17 +6,25 @@
 	<title>{% block title %}{% endblock %}</title>
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <!-- Bootstrap -->
+	<!-- Bootstrap 3 -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<!-- Roboto -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png" />
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
+<body>
 	<header>
 		<nav>
 			<ul class="nav-list">
-				<li><a href="{% url 'students' %}">Cтуденты</a></li>
-				<li><a href="{% url 'teacher' %}">Преподаватели</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'students' %}">Cтуденты</a></li>
+                    <li><a href="{% url 'teacher' %}">Преподаватели</a></li>
+                {% endif %}
 				{% if not request.user.is_authenticated %}
 					<li class="form"><a href="{% url 'login' %}">Войти</a></li>
 					<li class="form-registration"><a href="{% url 'registration' %}">Регистрация</a></li>
@@ -27,7 +35,7 @@
 			</ul>
 		</nav>
 	</header>
-<body>
-	{% block content %}{% endblock %}
+{% block content %}{% endblock %}
+{% block javascript %}{% endblock %}
 </body>
 </html>

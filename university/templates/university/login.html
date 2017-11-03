@@ -1,22 +1,32 @@
 {% extends 'university/index.html' %}
 {% block content %}
+<!--
 <form action="{% url 'login' %}" method="post">{% csrf_token %}
     <div class="form-group">
-        <label for="inputUserName">Имя Пользавателя</label>
-<!--        <input type="text" class="form-control" id="inputUserName" placeholder="Username"> -->
-        {{form.username}}
+        <label for="username">Имя пользавателя</label>
+        <input type="text" class="from-control" name="username" id="username">
     </div>
     <div class="form-group">
-        <label for="inputPassword">Пароль</label>
-<!--        <input type="password" class="form-control" id="inputPassword"> -->
-        {{form.password}}
+        <label for="password">Пароль</label>
+        <input type="password" name="password" id="password">
+    </div>
+   <input type="Submit" value="Войти">
+   <input type="hidden" name="text" value="{{next}}">
+</form>
+-->
+<form action="{% url 'login' %}" method="post">{% csrf_token %}
+    <div class="form-group">
+        <label for="username">Имя пользавателя</label>
+        <input type="text" class="form-control" id="username">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Пароль</label>
+        <input type="password" class="form-control" id="pwd">
     </div>
     <div class="checkbox">
-        <label>
-        <input type="checkbox"> Запомнить
-        </label>
+        <label><input type="checkbox"> Remember me</label>
     </div>
-    <input type="submit" value="Войти">
+    <button type="submit" class="btn btn-default">Submit</button>
     <input type="hidden" name="text" value="{{next}}">
 </form>
 {% endblock %}

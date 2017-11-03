@@ -1,36 +1,72 @@
 {% extends 'university/index.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}Студенты{% endblock %}
 {% block content %}
 <section class="container">
-	<h4>Студенты</h4>
-	<div class="button-add">
-		<a class="btn btn-primary" href="{% url 'student-form' %}">Добавить студента</a>
-	</div>
-	<table class="table table-bordered">
-		 <tr>
-			 <th>-/+</th>
-			 <th>Имя</th>
-			 <th>Фамилия</th>
-			 <th>Факультет</th>
-			 <th>Курс</th>
-			 <th>Група</th>
-			 <th>Фото</th>
-		 </tr>
-		 {% for student in students %}
-			 <tr>
-				 <td>
-					 <a class="glyphicon glyphicon-plus" href="{% url 'copy-student' student.id %}"></a>
-					 <a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"></a>
-				 </td>
-				 <td>{{student.name}}</td>
-				 <td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
-				 <td>{{student.department}}</td>
-				 <td>{{student.cource}}</td>
-				 <td>{{student.group}}</td>
-				 {% if student.photo %}
-				 	<td><img src="{{student.photo.url}}" alt=""></td>
-				 {% endif %}
-			</tr>
-		{% endfor %}
-	</table>
+    <h4>Студенты</h4>
+    <div class="button-add">
+        <a class="btn btn-primary" href="{% url 'student-form' %}">Добавить студента</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>+\-</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Факультет</th>
+            <th>Курс</th>
+            <th>Група</th>
+            <th>Фото</th>
+        </tr>
+        {% for student in students.reverse %}
+        <tr>
+            <td>
+                <div class="copy-student">
+                    <a id="copy" class="glyphicon glyphicon-plus" data-id = "{{student.id}}"
+                    ></a>
+                </div>
+                <div class="delete-student">
+                    <a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"></a>
+                </div>
+            </td>
+            <td>{{student.name}}</td>
+            <td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
+            <td>{{student.department}}</td>
+            <td>{{student.cource}}</td>
+            <td>{{student.group}}</td>
+            {% if student.photo %}
+<!--            <td><img src="{{student.photo.url}}" alt=""></td> -->
+<!--            <td><img src="{% thumbnail student.photo 100x100 crop%}" alt="" /></td> -->
+            <td><img src="{{student.photo.avatar.url}}" alt="" /></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
 </section>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
+<!--                    <a class="glyphicon glyphicon-plus" href="{% url 'copy-student' student.id %}"></a>
+-->

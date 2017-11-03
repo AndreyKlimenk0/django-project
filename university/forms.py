@@ -1,5 +1,5 @@
-from django.forms import ModelForm, TextInput, EmailField, PasswordInput, CharField, EmailInput, Select
-from university.models import Students, Teacher, Department, Group, Subject
+from django.forms import ModelForm, TextInput, EmailField, PasswordInput, CharField, EmailInput, Select, SelectMultiple
+from university.models import Students, Teacher
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -20,44 +20,18 @@ class StudentsForm(ModelForm):
 class TeacherForm(ModelForm):
     class Meta:
         model = Teacher
-        fields = ['name', 'surname']
+        fields = ['name', 'surname', 'department', 'cource', 'group', 'subject']
         widgets = {
             'name': TextInput(attrs={'class': 'form-control'}),
-            'surname': TextInput(attrs={'class': 'form-control'})
+            'surname': TextInput(attrs={'class': 'form-control'}),
+            'department': SelectMultiple(attrs={'class': 'form-control'}),
+            'cource': SelectMultiple(attrs={'class': 'form-control'}),
+            'group': SelectMultiple(attrs={'class': 'form-control'}),
+            'subject': SelectMultiple(attrs={'class': 'form-control'}),
         }
 
 
-class DepartmentForm(ModelForm):
-
-    class Meta:
-        model = Department
-        fields = ['faculty']
-        widget = {
-            'faculty': TextInput(attrs={'class': 'form-control'})
-        }
-
-
-class GroupForm(ModelForm):
-
-    class Meta:
-        model = Group
-        fields = ['party']
-        widget = {
-            'party': TextInput(attrs={'class': 'form-control'})
-        }
-
-
-class SubjectForm(ModelForm):
-
-    class Meta:
-        model = Subject
-        fields = ['matter']
-        widget = {
-            'matter': TextInput(attrs={'class': 'form-control'})
-        }
-
-
-class UserCreateForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     username = CharField(widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
     email = EmailField(required=True, widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     password1 = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password1'}))

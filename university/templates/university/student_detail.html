@@ -1,14 +1,31 @@
 {% extends 'university/index.html' %}
+{% load thumbnail %}
+{% block title %}{{student.surname}}&nbsp;{{student.name}}{% endblock %}
 {% block content %}
 <section class="container">
-	{% if student.photo %}
-		<div class="photo"><img src="{{student.photo.url}}" alt=""></div>
-	{% endif %}
-		<p>Фамилия: {{student.surname}}</p>
-		<p>Имя: {{student.name}}</p>
-		<p>Факультет: {{student.department}}</p>
-		<p>Курс: {{student.cource}}</p>
-		<p>Група: {{student.group}}</p>
+		{% if student.photo %}
+			<div class="photo">
+				<p>Img</p>
+				<img src="{% thumbnail student.photo 500x500 crop %}" alt="" />
+			</div>
+		{% endif %}
+	<div class="student-information">
+			<div class="surname">
+				Фамилия: {{student.surname}}
+			</div>
+			<div class="name">
+				Имя: {{student.name}}
+			</div>
+			<div class="department">
+				Факультет: {{student.department}}
+			</div>
+			<div class="cource">
+				Курс: {{student.cource}}
+			</div class="group">
+			<div>
+				Група: {{student.group}}
+			</div>
+	</div>
 	<table class="table table-bordered">
 		<tr>
 		 	<th>Оценка</th>

@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '1025'
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -34,13 +35,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'university.apps.UniversityConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'university',
+    'registration',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -77,13 +81,22 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'university_db',
-        'OPTIONS': {'read_default_file': '/path/to/my.cnf'},
+        'OPTIONS': {'read_default_file': os.path.join(BASE_DIR, 'my.cnf')},
         'USER': 'andrey',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3333',
     }
 }
+
+# Photo
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -121,15 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    '/home/andrey/projects_django/mysite/university/static/',
-
+    os.path.join(BASE_DIR, 'static', 'static_files'),
 )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
 
 
 # Login Url
 
 LOGIN_REDIRECT_URL = '/university/students/'
+
+# Registration
+
+ACCOUNT_ACTIVATION_DAYS = 7

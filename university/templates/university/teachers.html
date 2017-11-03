@@ -1,11 +1,12 @@
 {% extends 'university/index.html' %}
+{% block title %}Преподаватели{% endblock %}
 {% block content %}
 <section class="container">
 	<h4>Преподаватели</h4>
 	<div class="button-add">
 		<a class="btn btn-primary" href="{% url 'teacher-form' %}">Добавить преподавателя</a>
 	</div>
-	<table class="table table-bordered">
+	<table class="table table-striped">
 		 <tr>
 		 	<th>Имя</th>
 		 	<th>Фамилия</th>
@@ -17,17 +18,38 @@
 			 <tr>		 	
 			 	<td>{{teacher.name}}</td>
 			 	<td>{{teacher.surname}}</td>
-			 	<td>{% for department in  teacher.department_set.all %}
-			 		<p>{{department}}</p>
+			 	<td>{% for departments in  teacher.department.all %}
+			 		<p>{{departments}}</p>
 			 	{% endfor %}</td>
-			 	<td>{% for group in teacher.group_set.all %}
+			 	<td>{% for group in teacher.group.all %}
 			 		<p>{{group}}</p>
 				{% endfor %}</td>
-			 	<td>{% for subject in teacher.subject_set.all %}
+			 	<td>{% for subject in teacher.subject.all %}
 			 	    <p>{{subject}}</p>
 			 	{% endfor %}</td>
 			 </tr>
 		{% endfor %}
 	</table>
+    {% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
 </section>
 {% endblock %}

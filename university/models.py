@@ -1,19 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.db import models
-
-
-class Teacher(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Имя')
-    surname = models.CharField(max_length=255, verbose_name='Фамилия')
-
-    def __unicode__(self):
-        return '%s %s' % (self.name, self.surname)
+from easy_thumbnails.fields import ThumbnailerImageField
 
 
 class Department(models.Model):
     faculty = models.CharField(max_length=255, verbose_name='Факультет')
-    teacher = models.ForeignKey('Teacher', blank=True, null=True)
 
     def __unicode__(self):
         return self.faculty
@@ -28,7 +20,6 @@ class Cource(models.Model):
 
 class Group(models.Model):
     party = models.CharField(max_length=255, verbose_name='Група')
-    teacher = models.ForeignKey('Teacher', blank=True, null=True)
 
     def __unicode__(self):
         return self.party
@@ -36,19 +27,36 @@ class Group(models.Model):
 
 class Subject(models.Model):
     matter = models.CharField(max_length=255, verbose_name='Предмет')
-    teacher = models.ForeignKey('Teacher', blank=True, null=True)
 
     def __unicode__(self):
         return self.matter
 
 
+class Teacher(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    surname = models.CharField(max_length=255, verbose_name='Фамилия')
+    department = models.ManyToManyField('Department')
+    cource = models.ManyToManyField('Cource')
+    group = models.ManyToManyField('Group')
+    subject = models.ManyToManyField('Subject')
+
+    class Meta:
+        ordering = ['name']
+
+    def __unicode__(self):
+        return '%s %s' % (self.name, self.surname)
+
+
 class Students(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     surname = models.CharField(max_length=255, verbose_name='Фамилия')
-    photo = models.ImageField(blank=True, null=True)
+    photo = ThumbnailerImageField(upload_to='photo')
     department = models.ForeignKey('Department', verbose_name='Факультет')
     cource = models.ForeignKey('Cource', verbose_name='Курс')
     group = models.ForeignKey('Group', verbose_name='Група')
+
+    class Meta:
+        ordering = ['name']
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.surname)

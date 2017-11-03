@@ -1,6 +1,7 @@
-
+easy_install
 Django==1.11.2
 olefile==0.44
 Pillow==4.1.1
 pkg-resources==0.0.0
 pytz==2017.2
+easy-thumbnails==2.5

@@ -24,11 +24,6 @@ class StudentsList(ListView):
     def dispatch(self, request, *args, **kwargs):
         return super(StudentsList, self).dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(StudentsList, self).get_context_data(**kwargs)
-        student = Students.objects.all()
-        return context
-
 
 class TeachersList(ListView):
     model = Teacher
@@ -92,22 +87,15 @@ class TeacherFormView(FormView):
 
 class RegistrationView(FormView):
     form_class = RegistrationForm
-    success_url = reverse_lazy('register')
     template_name = 'registration/registration_form.html'
 
     def form_valid(self, form):
-        recipient = []
-        email = form.cleaned_data['email']
-        username = form.cleaned_data['username']
-        if email:
-            recipient.append(email)
-        send_mail(username, 'message', 'deadshot271998@gmail.com', recipient)
         form.save()
         return super(RegistrationView, self).form_valid(form)
 
 
 class DeleteStudentRedirect(RedirectView):
-    url = '/university/students/'
+    url = reverse_lazy('students')
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):

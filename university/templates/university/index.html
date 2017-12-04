@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
 	<!-- Bootstrap 3 -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -27,7 +27,7 @@
                 {% endif %}
 				{% if not request.user.is_authenticated %}
 					<li class="form"><a href="{% url 'login' %}">Войти</a></li>
-					<li class="form-registration"><a href="{% url 'registration' %}">Регистрация</a></li>
+					<li class="form-registration"><a href="/account/register/">Регистрация</a></li>
 				{% else %}
 					<li class="form"><a href="{% url 'logout' %}">Выйти</a></li>
 					<li class="form-username">{{user.username}}</li>

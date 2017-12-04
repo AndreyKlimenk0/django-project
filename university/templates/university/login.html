@@ -1,32 +1,35 @@
 {% extends 'university/index.html' %}
 {% block content %}
-<!--
-<form action="{% url 'login' %}" method="post">{% csrf_token %}
-    <div class="form-group">
-        <label for="username">Имя пользавателя</label>
-        <input type="text" class="from-control" name="username" id="username">
+<div class="login-container">
+    <div>
+    <h4 class="text-center">Авторизация</h4>
+    <div class="login-error-form">
+        {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
     </div>
-    <div class="form-group">
-        <label for="password">Пароль</label>
-        <input type="password" name="password" id="password">
+    <div class="container-login-form">
+        <form method="post" action="{% url 'login' %}">{% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <input type="submit" class="btn btn-default" value="Войти"/>
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
     </div>
-   <input type="Submit" value="Войти">
-   <input type="hidden" name="text" value="{{next}}">
-</form>
--->
-<form action="{% url 'login' %}" method="post">{% csrf_token %}
-    <div class="form-group">
-        <label for="username">Имя пользавателя</label>
-        <input type="text" class="form-control" id="username">
-    </div>
-    <div class="form-group">
-        <label for="pwd">Пароль</label>
-        <input type="password" class="form-control" id="pwd">
-    </div>
-    <div class="checkbox">
-        <label><input type="checkbox"> Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-    <input type="hidden" name="text" value="{{next}}">
-</form>
+</div>
 {% endblock %}

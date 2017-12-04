@@ -50,7 +50,7 @@ class Teacher(models.Model):
 class Students(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     surname = models.CharField(max_length=255, verbose_name='Фамилия')
-    photo = ThumbnailerImageField(upload_to='photo')
+    photo = ThumbnailerImageField(upload_to='photo_student')
     department = models.ForeignKey('Department', verbose_name='Факультет')
     cource = models.ForeignKey('Cource', verbose_name='Курс')
     group = models.ForeignKey('Group', verbose_name='Група')

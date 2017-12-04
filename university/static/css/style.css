@@ -14,10 +14,6 @@ h3, h4 {
 	margin: auto;
 }
 
-img {
-	height: 100px;
-	width: 100px;
-}
 /* top menu */
 
 .nav-list {
@@ -49,6 +45,8 @@ img {
 	text-decoration: none;
 }
 
+/* form registrarion */
+
 .form {
 	float: right;
 	color: white;
@@ -77,7 +75,22 @@ img {
 .container h4 {
 	padding-top: 30px;
 	text-align: center;
-	font-size: 20px;
+	font-size: 19px;
+}
+
+.delete-student, .copy-student {
+	padding-top: 25px;
+}
+
+.table a:hover {
+	text-decoration: none;
+}
+
+/* students */
+
+.table-student td {
+	height: 50px;
+	line-height: 50px;
 }
 
 /* students-form */
@@ -144,17 +157,58 @@ img {
 .student-information {
 	font-size: 16px;
 	padding: 10px 0;
+	margin-left: 210px;
 }
 
 .student-information div {
     margin: 5px 0;
     padding-left: 10px;     
-    background: #e8e8e8;
 	height: 40px;     
 	line-height: 40px;
-	border-radius: 3px; 
-	width: 400px;
+	border-radius: 0px; 
+	width: 280px;
+	border-bottom: black solid 3px;
+}
+
+.photo-student-detail {
+	height: 200px;
+	width: 200px;
+	float: left;
+	padding-top: 15px;
 }
 
 
-/* home */
+/* window-copy-student */
+
+.popup-messages {
+	background: #141414;
+	width: 500px;
+	height: 60px;
+	margin-left: 270px;
+	line-height: 60px;
+	color: white;
+	position: fixed;
+	bottom: 10px;
+	display: none;
+	border-radius: 8px ;
+}
+
+.popup-text {
+	font-size: 12px;
+	text-align: center;
+}
+
+
+/* login */
+
+.login-container {
+	margin: auto 300px;
+	margin-top: 30px;
+}
+
+.container-login-form {
+	width: 230px;
+	margin: auto;
+	padding-top: 20px;
+
+}

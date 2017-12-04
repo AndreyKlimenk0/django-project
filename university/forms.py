@@ -1,7 +1,9 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.forms import ModelForm, TextInput, EmailField, PasswordInput, CharField, EmailInput, Select, SelectMultiple
 from university.models import Students, Teacher
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class StudentsForm(ModelForm):
@@ -41,9 +43,16 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+'''
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=True)
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
         return user
+'''
+
+
+class LoginForm(AuthenticationForm):
+    username = CharField(label=u'Имя пользавателя', widget=TextInput(attrs={'class': 'form-control'}))
+    password = CharField(label=u'Пароль', widget=PasswordInput(attrs={'class': 'form-control'}))

@@ -3,12 +3,9 @@
 {% block title %}{{student.surname}}&nbsp;{{student.name}}{% endblock %}
 {% block content %}
 <section class="container">
-		{% if student.photo %}
-			<div class="photo">
-				<p>Img</p>
-				<img src="{% thumbnail student.photo 500x500 crop %}" alt="" />
-			</div>
-		{% endif %}
+	<div class="photo-student-detail">
+		<img src="{% thumbnail student.photo 200x220 crop %}" alt="" />
+	</div>
 	<div class="student-information">
 			<div class="surname">
 				Фамилия: {{student.surname}}

@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from university.forms import LoginForm, RegistrationForm
 from . import views
 
 
@@ -20,7 +21,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {
         'next_page': '/university/students/'}, name='logout'),
     url(r'^login/$', auth_views.login, {
-        'template_name': 'university/login.html'}, name='login'),
+        'template_name': 'university/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^student/(?P<pk>\d+)/delete-student/$',
         views.DeleteStudentRedirect.as_view(), name='delete-student'),
     url(r'^student/(?P<pk>\d+)/copy-student/$',
@@ -29,4 +30,4 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-settings.LOGIN_URL = '/university/registration/'
+settings.LOGIN_URL = '/account/register/'

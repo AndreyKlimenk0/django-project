@@ -6,8 +6,8 @@ from django.views.generic import (ListView, DetailView, FormView,
                                   RedirectView, TemplateView)
 from university.forms import StudentsForm, TeacherForm, RegistrationForm
 from django.core.urlresolvers import reverse_lazy
-from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 
 class HomePage(TemplateView):
@@ -41,8 +41,8 @@ class StudentDetail(DetailView):
     template_name = 'university/student_detail.html'
 
     def __init__(self, **kwargs):
+        self.kwargs = kwargs
         super(StudentDetail, self).__init__(**kwargs)
-        self.kwargs = None
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
@@ -59,8 +59,8 @@ class StudentDetail(DetailView):
 
 class StudentFormView(FormView):
     form_class = StudentsForm
-    success_url = reverse_lazy('student-form')
-    template_name = 'university/students_form.html'
+    success_url = reverse_lazy('students')
+    template_name = 'university/students.html'
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
@@ -115,8 +115,19 @@ class CopyStudentRedirect(RedirectView):
     def dispatch(self, request, *args, **kwargs):
         return super(CopyStudentRedirect, self).dispatch(request, *args, **kwargs)
 
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        student = Students.objects.get(pk=kwargs['pk'])
+        student.pk = None
+        student.save()
+        return super(CopyStudentRedirect, self).post(request, *args, **kwargs)
+
+
+'''
     def get_redirect_url(self, pk, *args, **kwargs):
         student = Students.objects.get(pk=pk)
         student.pk = None
         student.save()
-        return super(CopyStudentRedirect, self).get_redirect_url(*args, **kwargs)
+        return super(
+                CopyStudentRedirect, self).get_redirect_url(*args, **kwargs)
+'''

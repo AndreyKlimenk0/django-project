@@ -41,7 +41,7 @@ class Teacher(models.Model):
     subject = models.ManyToManyField('Subject')
 
     class Meta:
-        ordering = ['name']
+        ordering = ['-surname']
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.surname)
@@ -56,7 +56,7 @@ class Students(models.Model):
     group = models.ForeignKey('Group', verbose_name='Група')
 
     class Meta:
-        ordering = ['name']
+        ordering = ['-surname']
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.surname)

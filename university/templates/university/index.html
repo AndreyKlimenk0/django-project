@@ -7,14 +7,13 @@
 	<!-- CSS -->
 	<link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
 	<!-- Bootstrap 3 -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 	<!-- Roboto -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<!-- favicon -->
 	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png" />
-	<!--JQuery-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
 </head>
 <body>
 	<header>
@@ -35,7 +34,11 @@
 			</ul>
 		</nav>
 	</header>
-{% block content %}{% endblock %}
-{% block javascript %}{% endblock %}
+	{% block content %}{% endblock %}
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	{% block javascript %}{% endblock %}
 </body>
 </html>

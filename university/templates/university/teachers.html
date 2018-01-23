@@ -4,7 +4,7 @@
 <section class="container">
 	<h4>Преподаватели</h4>
 	<div class="button-add">
-		<a class="btn btn-primary" href="{% url 'teacher-form' %}">Добавить преподавателя</a>
+		<a class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Добавить преподавателя</a>
 	</div>
 	<table class="table">
 		 <tr>
@@ -15,7 +15,7 @@
 		 	<th>Предмет</th>
 		 </tr>
 		 {% for teacher in teachers %}
-			 <tr>		 	
+			 <tr>
 			 	<td>{{teacher.name}}</td>
 			 	<td>{{teacher.surname}}</td>
 			 	<td>{% for departments in  teacher.department.all %}
@@ -30,26 +30,53 @@
 			 </tr>
 		{% endfor %}
 	</table>
-    {% if is_paginated %}
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
+	<div class="pagination">
+		{% if is_paginated %}
+		<ul class="pagination">
+			{% if page_obj.has_previous %}
+				<li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&laquo;</span></li>
+			{% endif %}
+			{% for i in paginator.page_range %}
+				{% if page_obj.number == i %}
+					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+				{% else %}
+					<li><a href="?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if page_obj.has_next %}
+				<li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&raquo;</span></li>
+			{% endif %}
+		</ul>
         {% endif %}
-        {% for i in paginator.page_range %}
-            {% if page_obj.number == i %}
-                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-            {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-    </ul>
-    {% endif %}
+    </div>
+    <div class="modal fade" id="myModal" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Преподаватели</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form-student" method="post" action="{% url 'teacher-form' %}" enctype="multipart/form-data">{% csrf_token %}
+                        {% for field in form %}
+                            <div class="field-wrapper">
+                                {{field.error}}
+                                {{field.label_tag}}
+                                {{field}}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
+                    <button form="form-student" type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

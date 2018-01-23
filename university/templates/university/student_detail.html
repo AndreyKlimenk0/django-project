@@ -25,16 +25,16 @@
 	</div>
 	<table class="table table-bordered">
 		<tr>
-		 	<th>Оценка</th>
-		 	<th>Преподаватель</th>
 		 	<th>Предмет</th>
+		 	<th>Преподаватель</th>
+		 	<th>Оценка</th>
 		 	<th>Дата</th>
 		</tr>
 		{% for evalution in evalutions %}
 		<tr> 	
-			<td>{{evalution.appraisal}}</td>
-			<td>{{evalution.teacher}}</td>
 			<td>{{evalution.subject}}</td>
+			<td>{{evalution.teacher}}</td>
+			<td>{{evalution.appraisal}}</td>
 			<td>{{evalution.date}}</td>
 			{% endfor %}
 		</tr>

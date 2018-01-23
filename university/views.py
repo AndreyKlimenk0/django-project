@@ -1,13 +1,13 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from university.models import Students, Teacher, Evalution
-from django.views.generic import (ListView, DetailView, FormView,
-                                  RedirectView, TemplateView)
+from django.views.generic import ListView, DetailView, FormView, RedirectView, TemplateView, CreateView
+from django.views.generic.edit import FormMixin
 from university.forms import StudentsForm, TeacherForm, RegistrationForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 
 
 class HomePage(TemplateView):
@@ -24,6 +24,11 @@ class StudentsList(ListView):
     def dispatch(self, request, *args, **kwargs):
         return super(StudentsList, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(StudentsList, self).get_context_data(**kwargs)
+        context['form'] = StudentsForm()
+        return context
+
 
 class TeachersList(ListView):
     model = Teacher
@@ -34,6 +39,11 @@ class TeachersList(ListView):
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
         return super(TeachersList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(TeachersList, self).get_context_data(**kwargs)
+        context['form'] = TeacherForm()
+        return context
 
 
 class StudentDetail(DetailView):
@@ -57,10 +67,9 @@ class StudentDetail(DetailView):
         return context
 
 
-class StudentFormView(FormView):
+class StudentFormView(CreateView, FormMixin):
     form_class = StudentsForm
     success_url = reverse_lazy('students')
-    template_name = 'university/students.html'
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
@@ -71,10 +80,9 @@ class StudentFormView(FormView):
         return super(StudentFormView, self).form_valid(form)
 
 
-class TeacherFormView(FormView):
+class TeacherFormView(CreateView, FormMixin):
     form_class = TeacherForm
-    success_url = reverse_lazy('teacher-form')
-    template_name = 'university/teacher_form.html'
+    success_url = reverse_lazy('teacher')
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
@@ -101,33 +109,27 @@ class DeleteStudentRedirect(RedirectView):
     def dispatch(self, request, *args, **kwargs):
         return super(DeleteStudentRedirect, self).dispatch(request, *args, **kwargs)
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         student = get_object_or_404(Students, pk=kwargs['pk'])
         student.delete()
-        return super(DeleteStudentRedirect, self).get_redirect_url(
-            *args, **kwargs)
+        return super(DeleteStudentRedirect, self).get(request, *args, **kwargs)
 
 
 class CopyStudentRedirect(RedirectView):
-    url = '/university/students/'
+    url = reverse_lazy('students')
+
+    def __init__(self, **kwargs):
+        super(CopyStudentRedirect, self).__init__(**kwargs)
+        self.kwargs = None
 
     @method_decorator(login_required())
     def dispatch(self, request, *args, **kwargs):
         return super(CopyStudentRedirect, self).dispatch(request, *args, **kwargs)
 
-    @csrf_exempt
     def post(self, request, *args, **kwargs):
-        student = Students.objects.get(pk=kwargs['pk'])
-        student.pk = None
-        student.save()
-        return super(CopyStudentRedirect, self).post(request, *args, **kwargs)
-
-
-'''
-    def get_redirect_url(self, pk, *args, **kwargs):
-        student = Students.objects.get(pk=pk)
-        student.pk = None
-        student.save()
-        return super(
-                CopyStudentRedirect, self).get_redirect_url(*args, **kwargs)
-'''
+        student = get_object_or_404(Students, pk=self.kwargs['pk'])
+        copy_student = dict([(key, student.__dict__[key])
+                             for key in student.__dict__ if not key.startswith('_') and key not in 'id'])
+        obj = Students(**copy_student)
+        obj.save()
+        return self.get(request, *args, **kwargs)

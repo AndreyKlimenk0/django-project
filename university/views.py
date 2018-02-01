@@ -103,10 +103,6 @@ class DeleteStudentRedirect(TemplateView):
 class CopyStudentRedirect(TemplateView):
     template_name = 'university/students.html'
 
-    def __init__(self, **kwargs):
-        super(CopyStudentRedirect, self).__init__(**kwargs)
-        self.kwargs = None
-
     def post(self, request, *args, **kwargs):
         student = get_object_or_404(Students, pk=self.kwargs['pk'])
         student.id = None

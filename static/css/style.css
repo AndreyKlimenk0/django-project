@@ -14,6 +14,10 @@ h3, h4 {
 	margin: auto;
 }
 
+#tb-student td {
+	vertical-align: middle;
+}
+
 /* top menu */
 
 .nav-list {
@@ -86,35 +90,13 @@ h3, h4 {
 	text-decoration: none;
 }
 
-/* students */
+/* students 
 
 .table-student td {
-	height: 50px;
-	line-height: 50px;
+	background: #999;
+	vertical-align: middle;
 }
-
-/* students-form */
-
-.top-heading {
-	text-align: center;
-}
-
-.container-form {
-	height: 500px;
-	width: 300px;
-	margin: 0 auto;
-}
-
-.container-form button {
-	margin-top: 20px;
-	margin-left: 16px;
-}
-
-.container-form input {
-	width: 300px;
-	margin: 7px 0px;
-}
-
+*/
 /* registraform */
 
 .wrapper-registration{
@@ -161,13 +143,13 @@ h3, h4 {
 }
 
 .student-information div {
-    margin: 5px 0;
+    margin: 4px 0;
     padding-left: 10px;     
 	height: 40px;     
 	line-height: 40px;
 	border-radius: 0px; 
-	width: 280px;
-	border-bottom: black solid 2px;
+	width: 350px;
+	border-bottom: 1px solid #ddd;
 }
 
 .photo-student-detail {
@@ -213,16 +195,16 @@ h3, h4 {
 
 }
 
-/* modal
-.modal-body .form-horizontal .col-sm-2,
-.modal-body .form-horizontal .col-sm-10 {
-    width: 100%
+/* table 
+ .table-students td {
+    border-bottom: 1px solid #ddd;
+	text-align: left;
+	width: 500px;
+	height: 50px;
 }
 
-.modal-body .form-horizontal .control-label {
-    text-align: left;
-}
-.modal-body .form-horizontal .col-sm-offset-2 {
-    margin-left: 15px;
+.table-students tr {
+	border-style: 1px solid #ddd;
+	background: red;
 }
 */

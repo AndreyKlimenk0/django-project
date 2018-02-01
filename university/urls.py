@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^registration/$', views.RegistrationView.as_view(), name='registration'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/university/students/'}, name='logout'),
     url(r'^login/$', auth_views.login, {
-        'template_name': 'university/login.html', 'authentication_form': LoginForm}, name='login'),
+        'template_name': 'university/index.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^student/(?P<pk>\d+)/delete-student/$', views.DeleteStudentRedirect.as_view(), name='delete-student'),
     url(r'^student/(?P<pk>\d+)/copy-student/$', views.CopyStudentRedirect.as_view(), name='copy-student'),
 ]

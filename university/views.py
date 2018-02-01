@@ -3,26 +3,25 @@
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from university.models import Students, Teacher, Evalution
-from django.views.generic import ListView, DetailView, FormView, RedirectView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, FormView, TemplateView, CreateView
 from django.views.generic.edit import FormMixin
 from university.forms import StudentsForm, TeacherForm, RegistrationForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 
 class HomePage(TemplateView):
     template_name = 'university/home.html'
 
 
+@method_decorator(login_required, name='dispatch')
 class StudentsList(ListView):
     model = Students
     template_name = 'university/students.html'
     context_object_name = 'students'
     paginate_by = 10
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(StudentsList, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(StudentsList, self).get_context_data(**kwargs)
@@ -30,15 +29,12 @@ class StudentsList(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class TeachersList(ListView):
     model = Teacher
     template_name = 'university/teachers.html'
     context_object_name = 'teachers'
     paginate_by = 10
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(TeachersList, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(TeachersList, self).get_context_data(**kwargs)
@@ -46,6 +42,7 @@ class TeachersList(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class StudentDetail(DetailView):
     model = Students
     template_name = 'university/student_detail.html'
@@ -53,10 +50,6 @@ class StudentDetail(DetailView):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         super(StudentDetail, self).__init__(**kwargs)
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(StudentDetail, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(StudentDetail, self).get_context_data(**kwargs)
@@ -67,26 +60,20 @@ class StudentDetail(DetailView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class StudentFormView(CreateView, FormMixin):
     form_class = StudentsForm
     success_url = reverse_lazy('students')
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(StudentFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.save()
         return super(StudentFormView, self).form_valid(form)
 
 
+@method_decorator(login_required, name='dispatch')
 class TeacherFormView(CreateView, FormMixin):
     form_class = TeacherForm
     success_url = reverse_lazy('teacher')
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(TeacherFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.save()
@@ -102,12 +89,9 @@ class RegistrationView(FormView):
         return super(RegistrationView, self).form_valid(form)
 
 
-class DeleteStudentRedirect(RedirectView):
-    url = reverse_lazy('students')
-
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(DeleteStudentRedirect, self).dispatch(request, *args, **kwargs)
+@method_decorator(login_required, name='dispatch')
+class DeleteStudentRedirect(TemplateView):
+    template_name = 'university/students.html'
 
     def get(self, request, *args, **kwargs):
         student = get_object_or_404(Students, pk=kwargs['pk'])
@@ -115,21 +99,20 @@ class DeleteStudentRedirect(RedirectView):
         return super(DeleteStudentRedirect, self).get(request, *args, **kwargs)
 
 
-class CopyStudentRedirect(RedirectView):
-    url = reverse_lazy('students')
+@method_decorator(login_required, name='dispatch')
+class CopyStudentRedirect(TemplateView):
+    template_name = 'university/students.html'
 
     def __init__(self, **kwargs):
         super(CopyStudentRedirect, self).__init__(**kwargs)
         self.kwargs = None
 
-    @method_decorator(login_required())
-    def dispatch(self, request, *args, **kwargs):
-        return super(CopyStudentRedirect, self).dispatch(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         student = get_object_or_404(Students, pk=self.kwargs['pk'])
-        copy_student = dict([(key, student.__dict__[key])
-                             for key in student.__dict__ if not key.startswith('_') and key not in 'id'])
-        obj = Students(**copy_student)
-        obj.save()
+        student.id = None
+        student.save()
+        if request.is_ajax():
+            context = {'students': Students.objects.all()}
+            stud_html = render_to_string('university/students.html', context)
+            return JsonResponse({'stud_html': stud_html})
         return self.get(request, *args, **kwargs)

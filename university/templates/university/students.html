@@ -19,19 +19,15 @@
 			<th>Група</th>
 			<th>Фото</th>
 		</tr>
-		{% for student in students.reverse %}
-			<tr class="table-student">
+		{% for student in students %}
+			<tr id="tb-student" class="table-student" " data-student-table="{{student.name}}">
 				<td>
-					<div class="copy-student">
-						<a href="{% url 'copy-student' student.id %}" class="glyphicon glyphicon-plus"
-						   data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
-					</div>
+					<a href="{% url 'copy-student' student.id %}" class="glyphicon glyphicon-plus"
+						data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
 				</td>
 				<td>
-					<div class="delete-student">
-						<a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"
-                           data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
-					</div>
+					<a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"
+						data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
 				</td>
 				<td>{{student.name}}</td>
 				<td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
@@ -63,8 +59,8 @@
 				<li class="disabled"><span>&raquo;</span></li>
 			{% endif %}
 		</ul>
-        {% endif %}
-    </div>
+		{% endif %}
+	</div>
 	<div class="modal fade" id="myModal" >
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -75,12 +71,12 @@
 				<div class="modal-body">
 					<form id="form-student" method="post" action="{% url 'student-form' %}" enctype="multipart/form-data">{% csrf_token %}
 						{% for field in form %}
-                            <div class="field-wrapper">
-                                {{field.error}}
-                                {{field.label_tag}}
-                                {{field}}
-                            </div>
-                        {% endfor %}
+							<div class="field-wrapper">
+								{{field.error}}
+								{{field.label_tag}}
+								{{field}}
+							</div>
+						{% endfor %}
 					</form>
 				</div>
 				<div class="modal-footer">

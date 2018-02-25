@@ -1,70 +1,69 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="ru">
 <head>
-	<meta charset="UTF-8">
-	<title>{% block title %}{% endblock %}</title>
-	<!-- CSS -->
-	<link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
-	<!-- Bootstrap 3 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<!-- Roboto -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<!-- favicon -->
-	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png" />
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- CSS -->
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <!-- Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png" />
 
 </head>
 <body>
-	<header>
-		<nav>
-			<ul class="nav-list">
-				<li><a href="{% url 'home' %}">Главная</a></li>
-				{% if request.user.is_authenticated %}
-					<li><a href="{% url 'students' %}">Cтуденты</a></li>
-					<li><a href="{% url 'teacher' %}">Преподаватели</a></li>
-				{% endif %}
-				{% if not request.user.is_authenticated %}
-					<li class="form"><a href="" data-toggle="modal" data-target="#myModal">Войти</a></li>
-					<li class="form-registration"><a href="/account/register/">Регистрация</a></li>
-				{% else %}
-					<li class="form"><a href="{% url 'logout' %}">Выйти</a></li>
-					<li class="form-username">{{user.username}}</li>
-				{% endif %}
-			</ul>
-		</nav>
-	</header>
-	{% block content %}{% endblock %}
-	<div class="modal fade" id="myModal" >
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Вход на сайт</h4>
-				</div>
-				<div class="modal-body">
-					<form id="login" method="post" action="{% url 'login' %}">{% csrf_token %}
-						<div class="form-group">
-							<label class="control-label" for="username">Имя пользавателя</label>
-							<input class="form-control" id="username" type="text" name="username" value="" />
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="password">Пароль</label>
-							<input class="form-control" id="password" type="password" name="password" value="" />
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button  type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
-					<button form="login" type="submit" class="btn btn-primary">Войти</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	{% block javascript %}{% endblock %}
+    <header>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'students' %}">Cтуденты</a></li>
+                    <li><a href="{% url 'teacher' %}">Преподаватели</a></li>
+                {% endif %}
+                {% if not request.user.is_authenticated %}
+                    <li class="form"><a href="" data-toggle="modal" data-target="#login-Modal">Войти</a></li>
+                    <li class="form-registration"><a href="/account/register/">Регистрация</a></li>
+                {% else %}
+                    <li class="form"><a href="{% url 'logout' %}">Выйти</a></li>
+                    <li class="form-username">{{user.username}}</li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    <div class="modal fade" id="login-Modal" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Вход на сайт</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="login" method="post" action="{% url 'login' %}">{% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label" for="username">Имя пользавателя</label>
+                            <input class="form-control" id="username" type="text" name="username" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Пароль</label>
+                            <input class="form-control" id="password" type="password" name="password" value="" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
+                    <button form="login" type="submit" class="btn btn-primary">Войти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    {% block javascript %}{% endblock %}
 </body>
 </html>

@@ -14,6 +14,10 @@ h3, h4 {
 	margin: auto;
 }
 
+table {
+    font-size: 15px;
+}
+
 #tb-student td {
 	vertical-align: middle;
 }
@@ -137,26 +141,34 @@ h3, h4 {
 /* student-detail */
 
 .student-information {
-	font-size: 16px;
+	width: 400px;
+	font-size: 14px;
 	padding: 10px 0;
-	margin-left: 210px;
+	margin-left: 0px;
 }
 
 .student-information div {
+	width: 400px;
     margin: 4px 0;
     padding-left: 10px;     
 	height: 40px;     
 	line-height: 40px;
 	border-radius: 0px; 
-	width: 350px;
+	width: 250px;
 	border-bottom: 1px solid #ddd;
 }
 
 .photo-student-detail {
-	height: 200px;
-	width: 200px;
-	float: left;
+	height: 150px;
+	width: 150px;
+	float: right;
 	padding-top: 15px;
+	padding-right: 400px;
+}
+
+.table-bordered {
+	font-size: 13px;
+	width: 500px;
 }
 
 

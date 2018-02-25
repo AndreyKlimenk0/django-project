@@ -4,93 +4,115 @@
 {% block title %}Студенты{% endblock %}
 {% block content %}
 <section class="container">
-	<h4>Студенты</h4>
-	<div class="button-add">
-		<a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Добавить студента</a>
-	</div>
-	<table class="table">
-		<tr>
-			<th>Копр.</th>
-			<th>Удал.</th>
-			<th>Имя</th>
-			<th>Фамилия</th>
-			<th>Факультет</th>
-			<th>Курс</th>
-			<th>Група</th>
-			<th>Фото</th>
-		</tr>
-		{% for student in students %}
-			<tr id="tb-student" class="table-student" " data-student-table="{{student.name}}">
-				<td>
-					<a href="{% url 'copy-student' student.id %}" class="glyphicon glyphicon-plus"
-						data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
-				</td>
-				<td>
-					<a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"
-						data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
-				</td>
-				<td>{{student.name}}</td>
-				<td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
-				<td>{{student.department}}</td>
-				<td>{{student.cource}}</td>
-				<td>{{student.group}}</td>
-				<td><img src="{% thumbnail student.photo 80x80 crop %}" alt="" /></td>
-			</tr>
-		{% endfor %}
-	</table>
-	<div class="pagination">
-		{% if is_paginated %}
-		<ul class="pagination">
-			{% if page_obj.has_previous %}
-				<li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-			{% else %}
-				<li class="disabled"><span>&laquo;</span></li>
-			{% endif %}
-			{% for i in paginator.page_range %}
-				{% if page_obj.number == i %}
-					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-				{% else %}
-					<li><a href="?page={{ i }}">{{ i }}</a></li>
-				{% endif %}
-			{% endfor %}
-			{% if page_obj.has_next %}
-				<li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-			{% else %}
-				<li class="disabled"><span>&raquo;</span></li>
-			{% endif %}
-		</ul>
-		{% endif %}
-	</div>
-	<div class="modal fade" id="myModal" >
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Студенты</h4>
-				</div>
-				<div class="modal-body">
-					<form id="form-student" method="post" action="{% url 'student-form' %}" enctype="multipart/form-data">{% csrf_token %}
-						{% for field in form %}
-							<div class="field-wrapper">
-								{{field.error}}
-								{{field.label_tag}}
-								{{field}}
-							</div>
-						{% endfor %}
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button  type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
-					<button form="form-student" type="submit" class="btn btn-primary">Добавить</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="popup" class="popup-messages">
-		<div class="popup-text"></div>
-	</div>
+    <h4>Студенты</h4>
+    <div class="button-add">
+        <a class="btn btn-primary" data-toggle="modal" data-target="#modal-student-form">Добавить студента</a>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Копр.</th>
+            <th>Удал.</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Факультет</th>
+            <th>Курс</th>
+            <th>Група</th>
+            <th>Фото</th>
+        </tr>
+        {% for student in students %}
+            <tr id="tb-student" class="table-student">
+                <td>
+                    <a href="{% url 'copy-student' student.id %}" class="glyphicon glyphicon-plus"
+                       data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
+                </td>
+                <td>
+                    <a href="{% url 'delete-student' student.id %}" class="glyphicon glyphicon-minus"
+                       data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
+                </td>
+                <td>{{student.name}}</td>
+                <td><a href="{% url 'student' student.id %}" target="frame" data-toggle="modal"
+                       data-target="#modal-student" >{{student.surname}}</a></td>
+                <td>{{student.department}}</td>
+                <td>{{student.cource}}</td>
+                <td>{{student.group}}</td>
+                <td><img src="{% thumbnail student.photo 80x80 crop %}" alt="" /></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+    <a href="www.youtube.com" target="frame" data-toggle="modal" data-target="#modal-student"></a>
+    <div class="modal fade" id="modal-student-form" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-student" method="post" action="{% url 'student-form' %}" enctype="multipart/form-data">{% csrf_token %}
+                        {% for field in form %}
+                            <div class="field-wrapper">
+                                {{field.error}}
+                                {{field.label_tag}}
+                                {{field}}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
+                    <button form="form-student" type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-student" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Студент</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.w3schools.com/js/js_validation.asp" name="" frameborder="0" width="800" height="400">
+                        Произошла ошибка!
+                    </iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup" class="popup-messages">
+        <div class="popup-text"></div>
+    </div>
 </section>
 {% endblock %}
 {% block javascript %}
-	<script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

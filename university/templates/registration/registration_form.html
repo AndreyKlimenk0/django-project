@@ -5,22 +5,7 @@
 </div>
 <div class="wrapper-registration">
     <form class="" method="post" action=''>{% csrf_token %}
-        <div class="form-group">
-            <label for="inputEmail3" class="">Email</label>
-            {{form.email}}
-            </div>
-        <div class="form-group">
-            <label for="inputUsername" class="">Имя Пользавателя</label>
-            {{form.username}}
-            </div>
-        <div class="form-group">
-            <label for="inputPassword1" class="">Пароль</label>
-            {{form.password1}}
-        </div>
-        <div class="form-group">
-            <label for="inputPassword2" class="">Повторите пароль</label>
-            {{form.password2}}
-        </div>
+        {{form.as_p}}
         <div class="form-group">
             <button type="submit" class="btn btn-default">Регистрация</button>
         </div>

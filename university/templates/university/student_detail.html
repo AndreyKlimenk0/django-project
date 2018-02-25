@@ -1,43 +1,41 @@
-{% extends 'university/index.html' %}
 {% load thumbnail %}
-{% block title %}{{student.surname}}&nbsp;{{student.name}}{% endblock %}
-{% block content %}
 <section class="container">
-	<div class="photo-student-detail">
-		<img src="{% thumbnail student.photo 200x220 crop %}" alt="" />
-	</div>
-	<div class="student-information">
-			<div class="surname">
-				Фамилия: {{student.surname}}
-			</div>
-			<div class="name">
-				Имя: {{student.name}}
-			</div>
-			<div class="department">
-				Факультет: {{student.department}}
-			</div>
-			<div class="cource">
-				Курс: {{student.cource}}
-			</div class="group">
-			<div>
-				Група: {{student.group}}
-			</div>
-	</div>
-	<table class="table table-bordered">
-		<tr>
-		 	<th>Предмет</th>
-		 	<th>Преподаватель</th>
-		 	<th>Оценка</th>
-		 	<th>Дата</th>
-		</tr>
-		{% for evalution in evalutions %}
-		<tr> 	
-			<td>{{evalution.subject}}</td>
-			<td>{{evalution.teacher}}</td>
-			<td>{{evalution.appraisal}}</td>
-			<td>{{evalution.date}}</td>
-			{% endfor %}
-		</tr>
-	</table>
+    <div class="photo-student-detail">
+        <img src="{% thumbnail student.photo 130x130 crop %}" alt="" />
+    </div>
+    <div class="student-information">
+            <div class="surname">
+                Фамилия: {{student.surname}}
+            </div>
+            <div class="name">
+                Имя: {{student.name}}
+            </div>
+            <div class="department">
+                Факультет: {{student.department}}
+            </div>
+            <div class="cource">
+                Курс: {{student.cource}}
+            </div>
+            <div class="group">
+                Група: {{student.group}}
+            </div>
+    </div>
+    <div class="wrapper-student-table">
+        <table class="table table-bordered" style="width:870px;">
+            <tr>
+                <th>Предмет</th>
+                <th>Преподаватель</th>
+                <th>Оценка</th>
+                <th>Дата</th>
+            </tr>
+            {% for appraisal in appraisals %}
+            <tr>    
+                <td>{{appraisal.subject}}</td>
+                <td>{{appraisal.teacher}}</td>
+                <td>{{appraisal.appraisal}}</td>
+                <td>{{appraisal.date}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
 </section>
-{% endblock %}

@@ -3,7 +3,9 @@
 from django.forms import ModelForm, TextInput, EmailField, PasswordInput, CharField, EmailInput, Select, SelectMultiple
 from university.models import Students, Teacher
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.utils.translation import gettext_lazy as _
+from registration.forms import RegistrationForm
 
 
 class StudentsForm(ModelForm):
@@ -31,17 +33,16 @@ class TeacherForm(ModelForm):
             'group': SelectMultiple(attrs={'class': 'form-control'}),
             'subject': SelectMultiple(attrs={'class': 'form-control'}),
         }
+        labels = {
+            'department': _('Факульт'),
+        }
 
 
-class RegistrationForm(UserCreationForm):
-    username = CharField(widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+class MyRegistrationForm(RegistrationForm):
+    username = CharField(label='lalal', widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
     email = EmailField(required=True, widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     password1 = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password1'}))
     password2 = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password2'}))
-
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
 
 
 class LoginForm(AuthenticationForm):

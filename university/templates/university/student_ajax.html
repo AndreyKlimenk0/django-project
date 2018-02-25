@@ -1,0 +1,18 @@
+{% load static %}
+{% load thumbnail %}
+<tr id="tb-student" class="table-student" data-student-table="{{student.name}}" >
+    <td>
+        <a href="{% url 'copy-student' student.id %}" class="glyphicon glyphicon-plus"
+           data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
+    </td>
+    <td>
+        <a class="glyphicon glyphicon-minus" href="{% url 'delete-student' student.id %}"
+           data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
+    </td>
+    <td>{{student.name}}</td>
+    <td><a href="{% url 'student' student.id %}">{{student.surname}}</a></td>
+    <td>{{student.department}}</td>
+    <td>{{student.cource}}</td>
+    <td>{{student.group}}</td>
+    <td><img src="{% thumbnail student.photo 80x80 crop %}" alt="" /></td>
+</tr>

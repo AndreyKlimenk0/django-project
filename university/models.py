@@ -35,10 +35,10 @@ class Subject(models.Model):
 class Teacher(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     surname = models.CharField(max_length=255, verbose_name='Фамилия')
-    department = models.ManyToManyField('Department')
-    cource = models.ManyToManyField('Cource')
-    group = models.ManyToManyField('Group')
-    subject = models.ManyToManyField('Subject')
+    department = models.ManyToManyField('Department', verbose_name=u'Факультет')
+    cource = models.ManyToManyField('Cource', verbose_name=u'Курс')
+    group = models.ManyToManyField('Group', verbose_name=u'Група')
+    subject = models.ManyToManyField('Subject', verbose_name=u'Придмет')
 
     class Meta:
         ordering = ['-surname']

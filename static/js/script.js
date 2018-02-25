@@ -16,14 +16,15 @@ $(document).ready(function() {
     }
     var csrftoken = getCookie('csrftoken');
 
-    $('.glyphicon-plus').click(function(e) {
+    $('.glyphicon-plus').on('click', function(e) {
         e.preventDefault();
         var urlStudentCopy = $(this).attr('href'),
             studentName = $(this).data('student-name'),
-            studentSurName = $(this).data('student-surname');
+            studentSurName = $(this).data('student-surname'),
+            studentTable = $(this).parents('tbody');
         $.post(urlStudentCopy, { 'csrfmiddlewaretoken': csrftoken})
-        .success(function(data) {
-            $('body').html(data.stud_html)
+        .done(function(data) {
+            studentTable.append(data.stud_html)
             $('#popup').fadeIn('slow/400/fast', function() {
                 $('.popup-text').text('Студет ' + studentName + ' ' + studentSurName + ' копирован')
                 $(this).css({display: 'block'});
@@ -34,7 +35,7 @@ $(document).ready(function() {
                 });
             }, 1700)
         })
-        .error(function() {
+        .fail(function() {
            console.log('error');
         });;
     });
@@ -46,7 +47,7 @@ $(document).ready(function() {
             studentSurName = $(this).data('student-surname'),
             studentTable = $(this).parents('tr');
         $.get(urlStudentDelete)
-        .success(function(data) {
+        .done(function(data) {
             studentTable.remove()
             $('#popup').fadeIn('slow/400/fast', function() {
                 $('.popup-text').text('Студет ' + studentName + ' ' + studentSurName + ' удален')
@@ -58,7 +59,7 @@ $(document).ready(function() {
                 });
             }, 1700)
         })
-        .error(function() {
+        .fail(function() {
             console.log('Error')
         })
     });    

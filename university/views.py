@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from university.models import Students, Teacher, Evalution
 from django.views.generic import ListView, DetailView, FormView, TemplateView, CreateView
 from django.views.generic.edit import FormMixin
-from university.forms import StudentsForm, TeacherForm, RegistrationForm
+from university.forms import StudentsForm, TeacherForm, MyRegistrationForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -47,16 +47,28 @@ class StudentDetail(DetailView):
     model = Students
     template_name = 'university/student_detail.html'
 
-    def __init__(self, **kwargs):
-        self.kwargs = kwargs
-        super(StudentDetail, self).__init__(**kwargs)
-
     def get_context_data(self, **kwargs):
         context = super(StudentDetail, self).get_context_data(**kwargs)
         student = get_object_or_404(Students, id=self.kwargs['pk'])
-        evalutions = Evalution.objects.filter(student_id=self.kwargs['pk'])
+        appraisals = Evalution.objects.filter(student_id=self.kwargs['pk'])
         context['student'] = student
-        context['evalutions'] = evalutions
+        context['appraisals'] = appraisals
+        return context
+
+
+class StudentView(TemplateView):
+    template_name = 'university/student_detail.html'
+
+    def __init__(self, **kwargs):
+        super(StudentView, self).__init__(**kwargs)
+        self.kwargs = None
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentView, self).get_context_data(**kwargs)
+        student = get_object_or_404(Students, id=self.kwargs['pk'])
+        appraisals = Evalution.objects.filter(student_id=self.kwargs['pk'])
+        context['student'] = student
+        context['appraisals'] = appraisals
         return context
 
 
@@ -81,7 +93,7 @@ class TeacherFormView(CreateView, FormMixin):
 
 
 class RegistrationView(FormView):
-    form_class = RegistrationForm
+    form_class = MyRegistrationForm
     template_name = 'registration/registration_form.html'
 
     def form_valid(self, form):
@@ -108,7 +120,7 @@ class CopyStudentRedirect(TemplateView):
         student.id = None
         student.save()
         if request.is_ajax():
-            context = {'students': Students.objects.all()}
-            stud_html = render_to_string('university/students.html', context)
+            context = {'student': student}
+            stud_html = render_to_string('university/student_ajax.html', context)
             return JsonResponse({'stud_html': stud_html})
         return self.get(request, *args, **kwargs)

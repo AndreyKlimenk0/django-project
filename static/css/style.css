@@ -4,8 +4,8 @@ body, html{
 
 }
 
-body{ 	
-	min-height: 100px;
+body{
+	min-height: 1000px;
 	font-family: 'Roboto', Arial, sans-serif;
 }
 
@@ -65,7 +65,7 @@ table {
 	display: inline-block;
 	float: right;
 	color: white;
-	width: 100px;
+	width: 130px;
 	text-align: center;
 }
 
@@ -94,13 +94,6 @@ table {
 	text-decoration: none;
 }
 
-/* students 
-
-.table-student td {
-	background: #999;
-	vertical-align: middle;
-}
-*/
 /* registraform */
 
 .wrapper-registration{
@@ -150,11 +143,11 @@ table {
 .student-information div {
 	width: 400px;
     margin: 4px 0;
-    padding-left: 10px;     
-	height: 40px;     
+    padding-left: 10px;
+	height: 40px;
 	line-height: 40px;
-	border-radius: 0px; 
-	width: 250px;
+	border-radius: 0px;
+	width: 350px;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -162,8 +155,7 @@ table {
 	height: 150px;
 	width: 150px;
 	float: right;
-	padding-top: 15px;
-	padding-right: 400px;
+
 }
 
 .table-bordered {
@@ -192,31 +184,23 @@ table {
 	text-align: center;
 }
 
-
 /* login */
 
-.login-container {
-	margin: auto 300px;
-	margin-top: 30px;
+.login-socila-network {
+	
 }
 
-.container-login-form {
-	width: 230px;
-	margin: auto;
-	padding-top: 20px;
-
+.login-socila-network h4 {
+	padding-top: 10px;
+	text-align: center;
+	font-size: 16px;
+	border-top:  1px solid #ddd;
+	height: 40px;
 }
 
-/* table 
- .table-students td {
-    border-bottom: 1px solid #ddd;
-	text-align: left;
-	width: 500px;
-	height: 50px;
-}
+.button-social-network li {
+	list-style: none;
+	display: inline-block;
+	width: 55px;
 
-.table-students tr {
-	border-style: 1px solid #ddd;
-	background: red;
 }
-*/

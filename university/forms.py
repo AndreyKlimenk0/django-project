@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from django.forms import ModelForm, TextInput, EmailField, PasswordInput, CharField, EmailInput, Select, SelectMultiple
+from django.forms import ModelForm, TextInput,EmailField, PasswordInput, CharField, EmailInput, Select, SelectMultiple
 from university.models import Students, Teacher
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -32,9 +32,6 @@ class TeacherForm(ModelForm):
             'cource': SelectMultiple(attrs={'class': 'form-control'}),
             'group': SelectMultiple(attrs={'class': 'form-control'}),
             'subject': SelectMultiple(attrs={'class': 'form-control'}),
-        }
-        labels = {
-            'department': _('Факульт'),
         }
 
 

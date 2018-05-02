@@ -30,8 +30,7 @@
                        data-student-name = "{{student.name}}" data-student-surname = "{{student.surname}}"></a>
                 </td>
                 <td>{{student.name}}</td>
-                <td><a href="{% url 'student' student.id %}" target="frame" data-toggle="modal"
-                       data-target="#modal-student" >{{student.surname}}</a></td>
+                <td><a href="{% url 'student' student.id %}" class="link-modal-stud" >{{student.surname}}</a></td>
                 <td>{{student.department}}</td>
                 <td>{{student.cource}}</td>
                 <td>{{student.group}}</td>
@@ -62,15 +61,12 @@
         </ul>
         {% endif %}
     </div>
-    <a href="www.youtube.com" target="frame" data-toggle="modal" data-target="#modal-student"></a>
     <div class="modal fade" id="modal-student-form" >
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Форма для добавления студентов</h4>
                 </div>
                 <div class="modal-body">
                     <form id="form-student" method="post" action="{% url 'student-form' %}" enctype="multipart/form-data">{% csrf_token %}
@@ -91,16 +87,13 @@
         </div>
     </div>
     <div class="modal fade" id="modal-student" tabindex="-1" role="dialog" >
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document" style="width:1130px;" >
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Студент</h4>
                 </div>
                 <div class="modal-body">
-                    <iframe src="https://www.w3schools.com/js/js_validation.asp" name="" frameborder="0" width="800" height="400">
-                        Произошла ошибка!
-                    </iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
@@ -114,5 +107,6 @@
 </section>
 {% endblock %}
 {% block javascript %}
-    <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/student_iframe.js' %}"></script>
 {% endblock %}

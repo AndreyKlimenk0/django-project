@@ -30,6 +30,7 @@ $(document).ready(function() {
                 $(this).css({display: 'block'});
             });
             setTimeout(function() {
+                
                 $('#popup').fadeOut('slow/400/fast', function() {
                     $(this).css({diplay: 'none'})
                 });
@@ -62,5 +63,5 @@ $(document).ready(function() {
         .fail(function() {
             console.log('Error')
         })
-    });    
+    });
 });

@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 
 
 class HomePage(TemplateView):
+
     template_name = 'university/home.html'
 
 

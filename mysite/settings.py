@@ -28,7 +28,7 @@ SECRET_KEY = 'r!eai4u#hf5sc8na-cn1les2_+xqda*8m!+y42kf3&6=0@i0g7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # my app
     'university',
+    # install app
     'registration',
     'easy_thumbnails',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -69,12 +72,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # django social
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'university',
+        'USER': 'andrey',
+        'PASSWORD': 'andrey27',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+# MySql
 '''
 DATABASES = {
     'default': {
@@ -88,12 +107,16 @@ DATABASES = {
     }
 }
 '''
+
+# Sqlite3
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -145,3 +168,58 @@ LOGIN_REDIRECT_URL = '/university/students/'
 # Registration
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+# Django social networt login
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+SOCIAL_AUTH_ADMIN_SEARCH_FIELDS = ['field1', 'field2']
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/university/students/'
+
+# Twiteer
+SOCIAL_AUTH_TWITTER_KEY = 'm9btNXxPwkdzeYu1CE1X9UHEa'
+SOCIAL_AUTH_TWITTER_SECRET = '8MENIzbUwGJd02qz7VPb80dVrxnJK3bgIHEtNjADDyb5SKtL14'
+
+# Instagram
+SOCIAL_AUTH_INSTAGRAM_KEY = '26d43536264740b495ad03ed0cf1b5a8'
+SOCIAL_AUTH_INSTAGRAM_SECRET = '3c8e3cb6d3414e1db9b7d99a8214b273'
+
+# Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '393415843660-1bsvoc8v1kbrjuhenpmtv4dtu6762hk6.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TCDBYAL5mSedQC7376vpdYEf'
+
+# Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '234412833788689'
+SOCIAL_AUTH_FACEBOOK_SECRET = '021ea73e28b79f06910d0447c1fc7689'
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'locale': 'ru_RU',
+    'fields': 'name, email, last_name, first_name',
+}
+#SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+

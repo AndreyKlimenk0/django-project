@@ -56,7 +56,7 @@ class Students(models.Model):
     group = models.ForeignKey('Group', verbose_name='Група')
 
     class Meta:
-        ordering = ['-surname']
+        ordering = ['surname']
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.surname)

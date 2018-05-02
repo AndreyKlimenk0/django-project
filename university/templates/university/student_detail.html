@@ -1,41 +1,65 @@
 {% load thumbnail %}
-<section class="container">
-    <div class="photo-student-detail">
-        <img src="{% thumbnail student.photo 130x130 crop %}" alt="" />
-    </div>
-    <div class="student-information">
-            <div class="surname">
-                Фамилия: {{student.surname}}
-            </div>
-            <div class="name">
-                Имя: {{student.name}}
-            </div>
-            <div class="department">
-                Факультет: {{student.department}}
-            </div>
-            <div class="cource">
-                Курс: {{student.cource}}
-            </div>
-            <div class="group">
-                Група: {{student.group}}
-            </div>
-    </div>
-    <div class="wrapper-student-table">
-        <table class="table table-bordered" style="width:870px;">
-            <tr>
-                <th>Предмет</th>
-                <th>Преподаватель</th>
-                <th>Оценка</th>
-                <th>Дата</th>
-            </tr>
-            {% for appraisal in appraisals %}
-            <tr>    
-                <td>{{appraisal.subject}}</td>
-                <td>{{appraisal.teacher}}</td>
-                <td>{{appraisal.appraisal}}</td>
-                <td>{{appraisal.date}}</td>
-                {% endfor %}
-            </tr>
-        </table>
-    </div>
-</section>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- CSS -->
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <!-- Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png" />
+</head>
+<body>
+    <section class="container">
+        <div class="photo-student-detail">
+            <img src="{% thumbnail student.photo 130x130 crop %}" alt="" />
+        </div>
+        <div class="student-information">
+                <div class="surname">
+                    Фамилия: {{student.surname}}
+                </div>
+                <div class="name">
+                    Имя: {{student.name}}
+                </div>
+                <div class="department">
+                    Факультет: {{student.department}}
+                </div>
+                <div class="cource">
+                    Курс: {{student.cource}}
+                </div>
+                <div class="group">
+                    Група: {{student.group}}
+                </div>
+        </div>
+        <div class="wrapper-student-table">
+            <h4 style="text-align:center">Зачетная книжка</h4>
+            <table class="table table-bordered" style="width:925px;">
+                <tr>
+                    <th>Предмет</th>
+                    <th>Преподаватель</th>
+                    <th>Оценка</th>
+                    <th>Дата</th>
+                </tr>
+                {% for appraisal in appraisals %}
+                <tr>
+                    <td>{{appraisal.subject}}</td>
+                    <td>{{appraisal.teacher}}</td>
+                    <td>{{appraisal.appraisal}}</td>
+                    <td>{{appraisal.date}}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </section>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    {% block javascript %}{% endblock %}
+</body>
+</html>

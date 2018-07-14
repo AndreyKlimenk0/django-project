@@ -93,21 +93,21 @@ DATABASES = {
     }
 }
 
-# MySql
 '''
+# MySql
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'university_db',
+        'NAME': 'university',
         'OPTIONS': {'read_default_file': os.path.join(BASE_DIR, 'my.cnf')},
         'USER': 'andrey',
-        'PASSWORD': '1234',
+        'PASSWORD': 'andrey27',
         'HOST': 'localhost',
         'PORT': '3333',
     }
 }
 '''
-
 # Sqlite3
 '''
 DATABASES = {

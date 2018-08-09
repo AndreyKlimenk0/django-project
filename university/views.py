@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
@@ -11,6 +10,11 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+
+
+class ClockView(TemplateView):
+
+    template_name = 'ws-clock/index.html'
 
 
 class HomePage(TemplateView):

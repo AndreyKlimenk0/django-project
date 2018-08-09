@@ -9,6 +9,7 @@ from . import views
 
 
 urlpatterns = [
+    url(r'^clock/$', views.ClockView.as_view()),
     url(r'^home/$', views.HomePage.as_view(), name='home'),
     url(r'^students/$', views.StudentsList.as_view(), name='students'),
     url(r'^teacher/$', views.TeachersList.as_view(), name='teacher'),

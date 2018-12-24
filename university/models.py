@@ -7,28 +7,28 @@ from easy_thumbnails.fields import ThumbnailerImageField
 class Department(models.Model):
     faculty = models.CharField(max_length=255, verbose_name='Факультет')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.faculty
 
 
 class Cource(models.Model):
     path = models.CharField(max_length=1, verbose_name='Курс')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.path
 
 
 class Group(models.Model):
     party = models.CharField(max_length=255, verbose_name='Група')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.party
 
 
 class Subject(models.Model):
     matter = models.CharField(max_length=255, verbose_name='Предмет')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.matter
 
 
@@ -43,7 +43,7 @@ class Teacher(models.Model):
     class Meta:
         ordering = ['-surname']
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.name, self.surname)
 
 
@@ -58,7 +58,7 @@ class Students(models.Model):
     class Meta:
         ordering = ['surname']
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.name, self.surname)
 
 
@@ -69,6 +69,6 @@ class Evalution(models.Model):
     subject = models.ForeignKey('Subject', verbose_name='Предмет')
     date = models.DateField()
 
-    def __unicode__(self):
+    def __str__(self):
         self.appraisal = str(self.appraisal)
         return self.appraisal

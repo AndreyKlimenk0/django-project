@@ -1,6 +1,7 @@
 *.log
 *.pot
 *.pyc
+*.sock
 __pycache__/
 local_settings.py
 .env

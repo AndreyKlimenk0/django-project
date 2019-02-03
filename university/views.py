@@ -135,3 +135,7 @@ class CopyStudentRedirect(TemplateView):
 
 def hello_func(request):
     return HttpResponse('hello branch master')
+
+
+def add():
+    return 4 + 4

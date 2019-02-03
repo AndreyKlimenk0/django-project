@@ -140,3 +140,7 @@ def fix_func(request):
 
 def add():
     return 1 + 2
+
+
+def sub():
+    return 5 - 4

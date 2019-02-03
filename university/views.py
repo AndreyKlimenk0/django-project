@@ -139,3 +139,8 @@ def hello_func(request):
 
 def add():
     return 4 + 4
+
+
+def fix_func(request):
+    body = request.body
+    return HttpResponse('hello fix branche', body)

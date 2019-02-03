@@ -144,3 +144,7 @@ def add():
 def fix_func(request):
     body = request.body
     return HttpResponse('hello fix branche', body)
+
+
+def printf():
+    print('hello daun how are you english')

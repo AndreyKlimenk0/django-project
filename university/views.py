@@ -137,18 +137,9 @@ def hello_func(request):
     return HttpResponse('hello branch master')
 
 
-def add():
-    return 4 + 4
 
 
 def fix_func(request):
     body = request.body
     return HttpResponse('hello fix branche', body)
 
-
-def printf():
-    print('hello daun how are you english')
-
-
-def sub():
-    return 5 - 4

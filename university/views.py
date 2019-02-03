@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.http.response import HttpResponse
 
 
 class ClockView(TemplateView):
@@ -130,3 +131,7 @@ class CopyStudentRedirect(TemplateView):
             stud_html = render_to_string('university/student_ajax.html', context)
             return JsonResponse({'stud_html': stud_html})
         return self.get(request, *args, **kwargs)
+
+
+def fix_func(request):
+    return HttpResponse('hello fix branche')

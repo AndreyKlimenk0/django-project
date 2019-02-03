@@ -133,13 +133,21 @@ class CopyStudentRedirect(TemplateView):
         return self.get(request, *args, **kwargs)
 
 
+def hello_func(request):
+    return HttpResponse('hello branch master')
+
+
+def add():
+    return 4 + 4
+
+
 def fix_func(request):
     body = request.body
     return HttpResponse('hello fix branche', body)
 
 
-def add():
-    return 1 + 2
+def printf():
+    print('hello daun how are you english')
 
 
 def sub():

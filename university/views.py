@@ -134,4 +134,9 @@ class CopyStudentRedirect(TemplateView):
 
 
 def fix_func(request):
-    return HttpResponse('hello fix branche')
+    body = request.body
+    return HttpResponse('hello fix branche', body)
+
+
+def add():
+    return 1 + 2

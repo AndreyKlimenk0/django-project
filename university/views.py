@@ -132,14 +132,4 @@ class CopyStudentRedirect(TemplateView):
             return JsonResponse({'stud_html': stud_html})
         return self.get(request, *args, **kwargs)
 
-
-def hello_func(request):
-    return HttpResponse('hello branch master')
-
-
-
-
-def fix_func(request):
-    body = request.body
-    return HttpResponse('hello fix branche', body)
-
+    
